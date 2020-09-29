@@ -18,7 +18,13 @@ class SiteController extends Controller
     public function actionSaluda(){
         
         $mensaje= "Hello World";
-        return $this-> render ("saluda",['mensaje' => $mensaje]);
+        $numeros= [0,1,2,3,4,5];
+        return $this-> render ("saluda",
+        [
+            'saluda' => $mensaje,
+            'array' => $numeros
+        
+        ]);
         
     }
     

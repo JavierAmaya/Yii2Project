@@ -11,7 +11,18 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-          echo $mensaje;
+            echo $saluda;
         ?>
+        <p> 
+            <?php
+              foreach ($array as $key => $value) {
+                echo $array[$value];
+              }
+            ?>
+        </p>    
+        <?php foreach ($array as $value): ?>
+            <p><strong><?=$value?></strong></p>
+        <?php endforeach?>     
+
     </body>
 </html>
