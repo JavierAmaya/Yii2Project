@@ -23,6 +23,6 @@ and open the template in the editor.
         <?php foreach ($array as $value): ?>
             <p><strong><?=$value?></strong></p>
         <?php endforeach?>     
-
+        <h1><?=$get?></h1>      
     </body>
 </html>

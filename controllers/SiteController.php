@@ -15,18 +15,25 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actionSaluda(){
+    public function actionSaluda($get = "Tutorial Yii"){
         
         $mensaje= "Hello World";
-        $numeros= [0,1,2,3,4,5];
+        $numeros= [3,4,5,3,4,5];
         return $this-> render ("saluda",
         [
             'saluda' => $mensaje,
-            'array' => $numeros
-        
+            'array' => $numeros,
+            'get' => $get
         ]);
         
     }
+
+    public function actionFormulario(){
+        return $this -> render("formulario");
+
+    }
+
+
     
     
     
