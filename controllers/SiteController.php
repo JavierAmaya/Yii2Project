@@ -28,11 +28,18 @@ class SiteController extends Controller
         
     }
 
-    public function actionFormulario(){
-        return $this -> render("formulario");
+    public function actionFormulario($mensaje = null){
+        return $this -> render("formulario",['mensaje'=>$mensaje]);
 
     }
 
+    public function actionRequest(){
+        $mensaje = null;
+        if (isset($_REQUEST['nombre'])) { ///isset comprueba si la variable esta null o vacia, y devuelve true or false
+            $mensaje = "Bien, has enviado tu nombre: ".$_REQUEST['nombre'];
+        }
+        $this-> redirect(["site/formulario","mensaje"=>$mensaje]);
+    }
 
     
     
