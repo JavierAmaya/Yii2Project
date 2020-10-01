@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\ValidateForm;
 
 class SiteController extends Controller
 {
@@ -28,21 +29,34 @@ class SiteController extends Controller
         
     }
 
-    public function actionFormulario($mensaje = null){
-        return $this -> render("formulario",['mensaje'=>$mensaje]);
+    public function actionFormulario($mensaje = null,$estado=null){
+        return $this -> render("formulario",['mensaje'=>$mensaje,'estado'=>$estado]);
 
     }
-
+ 
+    public function actionPrueba(){
+        return $this->render("prueba");
+    }
+    
     public function actionRequest(){
         $mensaje = null;
         if (isset($_REQUEST['nombre'])) { ///isset comprueba si la variable esta null o vacia, y devuelve true or false
-            $mensaje = "Bien, has enviado tu nombre: ".$_REQUEST['nombre'];
+            $mensaje = "Bien, has enviado tu nombre: ".$_REQUEST['nombre']." y su correo es: ".$_REQUEST['correo'];
+            $estado="entro al if";
         }
-        $this-> redirect(["site/formulario","mensaje"=>$mensaje]);
+        $this-> redirect(["site/formulario","mensaje"=>$mensaje,"estado"=>$estado]);
     }
-
-    
-    
+    public function actionValidateform(){
+        $model = new ValidateForm;
+        if ($model -> load (Yii::$app->request->post())) {
+            if ($model -> validate()) {
+                # ejemplo :consultar en una base de datos
+            }else {
+                $model -> getErrors();
+            }
+        }
+        return $this-> render("validateform",['model' => $model]);
+    }
     
     public function behaviors()
     {
