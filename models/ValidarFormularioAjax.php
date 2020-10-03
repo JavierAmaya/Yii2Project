@@ -4,7 +4,7 @@ namespace app\models;
 use Yii;
 use yii\base\model;
 
-class ValidateForm extends model{
+class ValidarFormularioAjax extends model{
     // adding roles para los atributos ---- validacion del lado del servidor
     
     public $nombre;
@@ -17,7 +17,8 @@ class ValidateForm extends model{
             ['nombre', 'match', 'pattern' => "/^[0-9a-z]+$/i", 'message' => 'Solo se aceptan letras y numeros'],
             ['email', 'required', 'message' => 'Email requerido'],
             ['email', 'match', 'pattern' => "/^.{5,80}$/", 'message' => 'Minimo 5 y maximo 80 caracteres'],
-            ['email', 'email', 'message' => 'Formato no valido']
+            ['email', 'email', 'message' => 'Formato no valido'],
+            ['email', 'email_existe']
         ];
     }
 
@@ -28,6 +29,20 @@ class ValidateForm extends model{
 
         ];
 
+    }
+
+
+    public function email_existe($attribute, $params){
+        $email = ["manuel@gmail.com","antonio@gmail.com"];
+
+        foreach ($email as $value) {
+            if ($this->email == $value) {
+                $this->addError($attribute,"El email existe");
+                return true;
+            }else {
+                return false;
+            }
+        }
     }
 
 }

@@ -10,6 +10,11 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\ValidateForm;
+// se agregan los nuevos modelos a utilizar en nuestra vista 
+use app\models\ValidarFormularioAjax;
+// para trabajar con ajax es necesario añadir estos otros dos modelos 
+use yii\widgets\ActiveForm;
+//use yii\web\response;
 
 class SiteController extends Controller
 {
@@ -58,6 +63,42 @@ class SiteController extends Controller
         return $this-> render("validateform",['model' => $model]);
     }
     
+
+    /// accion para validar el formulario atravez de ajax
+
+    public function actionValidarformularioajax(){
+        // agregando los modelos que se necesitan para hacerlo funcionar
+        // se debe empezar agregando o creando la instancia del modelo
+
+        $model = new ValidarFormularioAjax;
+        $msg = null;
+
+        // comprobar si los datos son enviados via ajax  
+        //$model->load(Yii::$app->request->post()) --para comprobar que el metodo es post   //Yii::$app->request->isAjax --para comprobar que la peticion sea tipo ajax
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax) {  
+            Yii::$app->response->format = Response::FORMAT_JSON;   // para crear la respuesta en formato json 
+            return ActiveForm::validate($model);   //validacion del formulario            
+        }
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                // si la validacion del modelo es correcta // Ejemplo: hacer una consulta a una base de datos
+                $msg="Enhorabuena , formulario enviado correctamente";
+                $model->nombre = null;  // vaciando los datos, y es una forma de acceder a estos atributos
+                $model->email = null; 
+            }else {
+                $model->getErrors();
+            }
+        }
+        
+        return $this-> render("validarformularioajax",['model'=>$model , 'msg'=>$msg]); //['model'=>.....] pasando el modelo y el mensaje a la vista
+
+    }
+
+
+
+
+
+
     public function behaviors()
     {
         return [
