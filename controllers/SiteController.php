@@ -18,6 +18,11 @@ use yii\widgets\ActiveForm;
 
 class SiteController extends Controller
 {
+    //accion para crear 
+
+    public function actionCreate(){
+        return $this->render("create");
+    }
     /**
      * {@inheritdoc}
      */

@@ -1,7 +1,7 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
+$db = require __DIR__ . '/db.php'; // direccion del archivo de conexion de la base de datos
 
 $config = [
     'id' => 'basic',
@@ -43,6 +43,7 @@ $config = [
             ],
         ],
         'db' => $db,
+        // 'db2' => $db(archivo de conexion) => en caso de querer conectar otra db
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
