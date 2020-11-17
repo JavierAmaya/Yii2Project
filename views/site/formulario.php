@@ -16,7 +16,7 @@ use yii\helpers\Url;
 <div class="form-group">
     <?= Html::label("Introduce tu nombre",'nombre')?>
     <?= Html::textInput( 'nombre', null, ["class" => "form-control"] )?>
-    <?= Html::label("Introduce tu correo",'correo')?>;
+    <?= Html::label("Introduce tu correo electronico",'correo')?>;
     <?= Html::textInput('correo',null,["class"=> "form-control"])?> 
     <?= Html::submitInput("Enviar nombre",["class" => "btn btn-primary"])?>
 </div> 
